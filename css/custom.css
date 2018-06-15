@@ -1,11 +1,28 @@
-/* Always set the map height explicitly to define the size of the div
-* element that contains the map. */
-#map {
- height: 100%;
-}
-/* Optional: Makes the sample page fill the window. */
+/* Coolors Exported Palette - coolors.co/ffa500-595959-2e4057-7f7f7f-a5a5a5
+#FFA500 - orange
+#595959 - dark grey
+#2E4057 - blue
+#7F7F7F - grey
+#A5A5A5 - light grey
+*/
+
 html, body {
  height: 100%;
  margin: 0;
  padding: 0;
 }
+.header {
+    text-align: center;
+    background-color: #2E4057
+}
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: #595959
+}
+/* Always set the map height explicitly to define the size of the div
+* element that contains the map. */
+#map {
+    height: 75%;
+   }
