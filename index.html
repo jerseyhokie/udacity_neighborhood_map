@@ -3,26 +3,51 @@
   <head>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
-	<link rel="stylesheet" href="css/custom.css">
+    <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/custom.css">
+    <title>Neighborhood Map Project</title>
   </head>
 
-  <body>
-    
-    <div id=title class="header">Neighborhood Map</div>
-    
-    <div id=container>
+<body>
 
+<div class = "container">
+
+<div class="header">
+  <a href="" class="logo">Disney World Favorites</a>
+  <input class="menu-btn" type="checkbox" id="menu-btn" />
+  <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+  <ul class="menu">
+    <li><a href="#work">Our Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#careers">Careers</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</div>
+
+<div class = "container control">
+    <h2>Locations:</h2>
+    <p>
+    <ul data-bind="foreach: markerList">
+        <p><li class="list-item" data-bind="text: name, click: $parent.setMarker"></li>
+    </ul>
+</div>
+    
     <div id="map"></div>
     
+    <div class = "container data" data-bind="with:currentMarker">
+        <h2 data-bind="text: name"></h2>
     </div>
+</div>
 
 
 <!-- Load the required scripts -->    
 <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="js/main.js"></script>
+
 <!-- Load the Google Maps API -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADbtNylQV8MvWF4wYpCGEY3iLtPjM3mek&callback=initMap"
-async defer></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyADbtNylQV8MvWF4wYpCGEY3iLtPjM3mek&callback=initMap"
+></script>
+
 </body>
 </html>
