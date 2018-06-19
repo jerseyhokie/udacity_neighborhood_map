@@ -28,15 +28,19 @@
     <h2>Locations:</h2>
     <p>
     <ul data-bind="foreach: markerList">
-        <p><li class="list-item" data-bind="text: name, click: $parent.listItemClicked"></li>
+        <p>
+            <li><button class="list-item" data-bind="text: name, click: listItemClicked"></button></li>
+            </p>
     </ul>
 </div>
     
     <div id="map"></div>
     
-    <div class = "container data" data-bind="with:currentMarker">
-        <h2 data-bind="text: name"></h2>
-    </div>
+</div>
+
+<div id="api-error" data-bind="visible: apiError">
+    <p>
+    <h3> Google Maps and/or Wikipedia have encountered an error loading... please refresh to try again</h3>
 </div>
 
 
@@ -46,8 +50,7 @@
 <script src="js/main.js"></script>
 
 <!-- Load the Google Maps API -->
-<script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyADbtNylQV8MvWF4wYpCGEY3iLtPjM3mek&callback=initMap"
-></script>
+<script async defer  src="https://maps.googleapis.com/maps/api/js?&key=AIzaSyADbtNylQV8MvWF4wYpCGEY3iLtPjM3mek&callback=initMap" onerror="checkApiError()"></script>
 
 </body>
 </html>
