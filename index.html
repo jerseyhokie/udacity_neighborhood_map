@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,700" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="css/custom.css">
-    <title>Neighborhood Map Project</title>
+    <title>Disney Favorite's Project</title>
   </head>
 
 <body>
@@ -14,33 +14,38 @@
 
 <div class="header">
   <a href="" class="logo">Disney World Favorites</a>
-  <input class="menu-btn" type="checkbox" id="menu-btn" />
-  <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
-  <ul class="menu">
-    <li><a href="#work">Our Work</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#careers">Careers</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
 </div>
 
 <div class = "container control">
+    <p> Search? </p> <input data-bind="textInput: searchInput" placeholder="Filter..."></input>
     <h2>Locations:</h2>
     <p>
-    <ul data-bind="foreach: markerList">
+    <ul class="list-item" data-bind="foreach: markerList">
         <p>
-            <li><button class="list-item" data-bind="text: name, click: listItemClicked"></button></li>
+            <li> <button data-bind="text: location_name, visible: showMarker, click: $parent.openInfoWindow"></button></li>
             </p>
     </ul>
 </div>
+   
+<div id="map"></div>
     
-    <div id="map"></div>
-    
-</div>
 
 <div id="api-error" data-bind="visible: apiError">
     <p>
-    <h3> Google Maps and/or Wikipedia have encountered an error loading... please refresh to try again</h3>
+    <h3> Google Maps and/or Foursquare have encountered an error loading... please refresh to try again</h3>
+</div>
+
+
+<div class="footer">
+    <p> Powered By: </p>
+    <b>
+    <p><a href="https://www.foursquare.com">
+    <img src="img/Powered-by-Foursquare-full-color-300.png" alt="FourSquare" width="64"></a></p>
+    <p><a href="https://materialdesignicons.com/"> Material Design Icons </a></p>
+</div>
+
+</b>
+
 </div>
 
 
