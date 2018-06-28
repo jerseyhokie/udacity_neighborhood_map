@@ -7,31 +7,68 @@
 */
 
 html, body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Roboto' , sans-serif;
-    background-color: #A5A5A5;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto' , sans-serif;
+  background-color: #a5a5a5;
+  text-align: center;
 }
 
 ul {
-  list-style: none;    
+  list-style: none;
 }
 
-.container {
- width: 100%
- height: 100%;
+button {
+  float: left;
+  border-radius: 1px black;
+  padding: 5px;
+}
+
+button:hover {
+  background-color: #ffa500;
+  color: white;
+}
+
+
+/* Create animated search bar */
+/* https://www.w3schools.com/howto/howto_css_animated_search.asp */
+
+input[type=text] {
+  width: 130px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+
+/* When the input field gets focus, change its width to 100% */
+input[type=text]:focus {
+  width: 50%;
+}
+
+.header {
+  width: 100%;
+  color: #ffa500;
+  text-shadow: 3px 2px #595959;
+  background-color: #2e4057;
 }
 
 .control {
-  width: 20%;
+  padding: 10px;
+}
+
+.api-error {
+
+}
+
+.footer {
+
 }
 
 /* Always set the map height explicitly to define the size of the div
 * element that contains the map. */
 #map {
-    height: 100%;
-    width: 80%;
-    position: absolute;
+  height: 600px;
+  width: 100%;
+  display: flex;
    }
 
 #infobox {
@@ -40,36 +77,24 @@ ul {
 }
 
 .marker-name{
-
+  font-weight: bold;
 }
 
 .marker-address{
-
+  font-style: italic;
 }
 
 .marker-location-img{
-
+  border:5px solid black
 }
 
 .foursquareImg {
-  
+  width: 75%;
+
 }
 
 /* 48em = 768px */
 
 @media (min-width: 48em) {
-  .header li {
-    float: left;
-  }
-  .header li a {
-    padding: 20px 30px;
-  }
-  .header .menu {
-    clear: none;
-    float: right;
-    max-height: none;
-  }
-  .header .menu-icon {
-    display: none;
-  }
+
 }

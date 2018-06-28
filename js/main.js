@@ -1,7 +1,6 @@
 // Initial Variables
-var infoWindow, map, currentMarker;
+var infoWindow, map;
 var apiError = ko.observable(false);
-var markers = ko.observableArray([]);
 
 var initialMarkers = [
 {
@@ -12,23 +11,23 @@ var initialMarkers = [
   placeID: "ChIJITTqF6x_3YgRux4zmUJnQZs",
   icon: "img/hotel.png"
 },
-{  
+{
   location_name: "Hurricane Hanna's Grill",
   lat: 28.370711,
   lng: -81.557297,
   address: "1800 Epcot Resorts Blvd, Lake Buena Vista, FL 32830, USA",
   placeID: "ChIJMTszgqx_3YgRK2VXwVg7HIY",
-  icon: "img/silverware.png"
+  icon: "img/silverware-variant.png"
 },
-{  
+{
   location_name: "Narcoossee's",
   lat: 28.412621,
   lng: -81.585816,
   address: "4401 Grand Floridian, Orlando, FL 32830, USA",
   placeID: "ChIJTxam8_eRwogRbmd1WgkPBF8",
-  icon: "img/silverware.png"
+  icon: "img/silverware-variant.png"
 },
-{  
+{
   location_name: "Epcot",
   lat: 28.374694,
   lng: -81.549404,
@@ -36,7 +35,7 @@ var initialMarkers = [
   placeID: "ChIJGzFs3q9_3YgRvZd1y2NSJOo",
   icon: "img/star-face.png"
 },
-{  
+{
   location_name: "The LEGO Store",
   lat: 28.371306,
   lng: -81.515814,
@@ -44,29 +43,29 @@ var initialMarkers = [
   placeID: "ChIJO3vjMIF_3YgRAcjNXo6ZTv4",
   icon: "img/star-face.png"
 },
-{  
+{
   location_name: "The Nomad Lounge",
   lat: 28.3583009,
   lng: -81.5924955,
   address: "Kissimmee, FL 34747, USA",
   placeID: "",
-  icon: "img/silverware.png"
+  icon: "img/silverware-variant.png"
 },
-{  
+{
   location_name: "Typhoon Lagoon",
   lat: 28.3658028,
   lng: -81.5317484,
   address: "1145 East Buena Vista Boulevard, Orlando, FL 32830, USA",
   placeID: "ChIJvf5b1IJ_3YgRjllVklxc0aQ",
-  icon: "img/star-face.png"
+  icon: "img/hot-tub.png"
 },
-{  
+{
   location_name: "Jiko - The Cooking Place",
   lat: 28.3521361,
   lng: -81.6049018,
   address: "2901 Osceola Pkwy, Orlando, FL 32830, USA",
   placeID: "ChIJZfongZ1-3YgRTKd35P_Shuk",
-  icon: "img/silverware.png"
+  icon: "img/silverware-variant.png"
 }
 
 ]
@@ -127,7 +126,7 @@ vm = new ViewModel();
 ko.applyBindings(vm);
 
 // If there is an API error, update the error DIV on the website with visable
-function checkApiError() {
+function setApiError() {
   apiError(true);
 }
 
@@ -138,24 +137,9 @@ function initMap() {
   var Disney = {lat:28.375829, lng: -81.558266};
   map = new google.maps.Map(document.getElementById('map'), {
     center: Disney,
-    zoom: 13,
-    scrollwheel: false,
-    disableDefaultUI: true
+    zoom: 12,
   })
 
-  // Functions to help center the google maps
-  // From https://stackoverflow.com/questions/8792676/center-google-maps-v3-on-browser-resize-responsive
-
-  var center;
-  function calculateCenter() {
-    center = map.getCenter();
-  }
-  google.maps.event.addDomListener(map, 'idle', function() {
-    calculateCenter();
-  });
-  google.maps.event.addDomListener(window, 'resize', function() {
-    map.setCenter(center);
-  });
 
   var largeInfowindow = new google.maps.InfoWindow({
         maxWidth:350
@@ -165,7 +149,7 @@ function initMap() {
   var bounds = new google.maps.LatLngBounds();
     // Following section uses the location array to create a set of markers.
     initialMarkers.forEach(function(place, i) {
-        // Get position from location array.        
+        // Get position from location array.
         var position = {lat: place.lat, lng: place.lng};
         var location_name = place.location_name;
         var lat = place.lat;
@@ -233,8 +217,8 @@ function initMap() {
                 infowindow.setMarker = null;
             });
 
-          // Setup call to foursquare's API  
-          // Establish variables for data returned from fourSQ 
+          // Setup call to foursquare's API
+          // Establish variables for data returned from fourSQ
           var lat = marker.lat;
 		  var lng = marker.lng;
 		  var fourSQ_ID;
@@ -260,7 +244,8 @@ function initMap() {
 		    },
 		    // Catch any JSON errors
 		    error: function(xhr, status, error) {
-		    	checkApiError();
+		    	alert(xhr.responseText);
+		    	setApiError();
 		    }
 		  });
 
@@ -276,22 +261,34 @@ function initMap() {
 		    $.ajax(url, {
 		      dataType: "jsonp",
 		      success: function(data) {
+		      	// To Do: Handle Foursquare quota exceeded
+		      	// if ((data.meta.errorType == "quota_exceeded") && (data.meta.code = "429")){
+		      	// 	console.log("Foursquare Photos Quota Exceeded");
+		      	// 	setApiError();
+		      	// 	infowindow.setContent('<div class="marker-name">' + fourSq_Name +
+		       //      '</div><div class="marker-address">' + fourSq_Address +
+		       //      '</div><a href="http://foursquare.com/v/' + fourSq_Name + '/' + fourSQ_ID +
+		       //      '?ref=U1XOXNRNDQERHG2KYML4A0R3REQMYL3SQTRUPRVKDWLSNEUS" target="_blank">' +
+		       //      '<figure class="marker-location-img"><img src="img/image.png" id="infobox"></figure></a>' +
+		       //      '<img class="foursquareImg" src="img/Powered-by-Foursquare-full-color-300.png">');
+		      	// }
+		      	// else {
 		        var photos = data.response.photos.items;
-		        console.log(photos);
 		        photos.forEach(function(photo) {
 		        picURL = photo.prefix + "height500" + photo.suffix;
 		          infowindow.setContent('<div class="marker-name">' + fourSq_Name +
-		            '</div><div class="marker-address">' + fourSq_Address + 
+		            '</div><div class="marker-address">' + fourSq_Address +
 		            '</div><a href="http://foursquare.com/v/' + fourSq_Name + '/' + fourSQ_ID +
 		            '?ref=U1XOXNRNDQERHG2KYML4A0R3REQMYL3SQTRUPRVKDWLSNEUS" target="_blank">' +
 		            '<figure class="marker-location-img"><img src="' + picURL +
-		            '" id="infobox"></figure></a>' + 
+		            '" id="infobox"></figure></a>' +
 		            '<img class="foursquareImg" src="img/Powered-by-Foursquare-full-color-300.png">');
 		        });
-		      },
+		    },
 		      // Catch any JSON errors
 		    error: function(xhr, status, error) {
-		    	checkApiError();
+		    	alert(xhr.responseText);
+		    	setApiError();
 		    }
 		    })};
 
@@ -299,7 +296,7 @@ function initMap() {
           infowindow.open(map, marker);
 
         } // ENd of the if statement
-    
+
     } // End of the populateInfoWindow function
 
 }    // End of the initMap Function

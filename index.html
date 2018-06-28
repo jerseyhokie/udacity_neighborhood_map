@@ -10,52 +10,45 @@
 
 <body>
 
-<div class = "container">
-
 <div class="header">
-  <a href="" class="logo">Disney World Favorites</a>
+  <h1>Favorite Disney World Locations</h1>
 </div>
 
-<div class = "container control">
-    <p> Search? </p> <input data-bind="textInput: searchInput" placeholder="Filter..."></input>
-    <h2>Locations:</h2>
+<div class = "control">
+  <input type="text" data-bind="textInput: searchInput" placeholder="Filter Locations..."></input>
+  <br>
+  <ul class="list-item" data-bind="foreach: markerList">
     <p>
-    <ul class="list-item" data-bind="foreach: markerList">
-        <p>
-            <li> <button data-bind="text: location_name, visible: showMarker, click: $parent.openInfoWindow"></button></li>
-            </p>
-    </ul>
+    <li> <button data-bind="text: location_name, visible: showMarker, click: $parent.openInfoWindow"></button></li>
+    </p>
+  </ul>
+  <br>
+  <br>
 </div>
-   
+
 <div id="map"></div>
-    
 
 <div id="api-error" data-bind="visible: apiError">
-    <p>
-    <h3> Google Maps and/or Foursquare have encountered an error loading... please refresh to try again</h3>
+  <p>
+  <h3> Google Maps or Foursquare have encountered an error loading... please refresh to try again and refer to the console log for more details</h3>
 </div>
-
 
 <div class="footer">
-    <p> Powered By: </p>
-    <b>
-    <p><a href="https://www.foursquare.com">
-    <img src="img/Powered-by-Foursquare-full-color-300.png" alt="FourSquare" width="64"></a></p>
-    <p><a href="https://materialdesignicons.com/"> Material Design Icons </a></p>
+  <h3> Created Using: </h3>
+  <br>
+  <p><a href="https://www.foursquare.com" target="_blank">
+    <img src="img/Powered-by-Foursquare-full-color-300.png" alt="FourSquare"></a></p>
+  <p><a href="https://materialdesignicons.com/" target="_blank"> Material Design Icons </a></p>
+  <p><a href="https://developers.google.com/maps/documentation/javascript/tutorial" target="_blank">Google Maps API</a></p>
 </div>
 
-</b>
-
-</div>
-
-
-<!-- Load the required scripts -->    
+<!-- Load the required scripts -->
 <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="js/main.js"></script>
 
 <!-- Load the Google Maps API -->
-<script async defer  src="https://maps.googleapis.com/maps/api/js?&key=AIzaSyADbtNylQV8MvWF4wYpCGEY3iLtPjM3mek&callback=initMap" onerror="checkApiError()"></script>
+<script async defer  src="https://maps.googleapis.com/maps/api/js?&key=AIzaSyADbtNylQV8MvWF4wYpCGEY3iLtPjM3mek&callback=initMap" onerror="setApiError()"></script>
 
 </body>
 </html>
